@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/weatherapp.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
           title: const Text('cool weather app'),
         ),
       ),
+      home: WeatherApp(),
     );
   }
 }
