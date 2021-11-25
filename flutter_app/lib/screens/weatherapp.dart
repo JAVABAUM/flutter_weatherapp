@@ -40,6 +40,43 @@ class WeatherApp extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
             ),
+            Container(
+              decoration: const BoxDecoration(color: Colors.black54),
+            ),
+            Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                children: const [
+                  SizedBox(
+                    height: 150,
+                  ),
+                  Text(
+                    '25°C',
+                    style: TextStyle(
+                      fontSize: 80,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'San Francisco',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    '08:56 - Friday, 25 Nov 2021',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
