@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
           title: const Text('cool weather app'),
         ),
       ),
-      home: WeatherApp(),
     );
   }
 }
