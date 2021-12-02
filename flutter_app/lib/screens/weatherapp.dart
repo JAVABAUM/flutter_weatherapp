@@ -1,12 +1,26 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
-class WeatherApp extends StatelessWidget {
+class WeatherApp extends StatefulWidget {
+  @override
+  _WeatherAppState createState() => _WeatherAppState();
+}
+
+class _WeatherAppState extends State<WeatherApp> {
+  Weather? currentWeather;
+
+  @override
+  initState() => {
+        // currentWeather = parseWeather(getWeather()),
+        // currentWeather = Weather("name", "", DateTime.utc(1989, 11, 9), 10.0),
+        print(currentWeather!.name)
+      };
+
   @override
   Widget build(BuildContext context) {
-    getWeather();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -116,27 +130,47 @@ class WeatherApp extends StatelessWidget {
       ),
     );
   }
-}
 
-Future<String> getWeather() async {
-  final response = await http.get(Uri.parse(
-      'http://api.weatherapi.com/v1/forecast.json?key=e0271b19e612477b8fa84526211811&q=Baden'));
-  if (response.statusCode == 200) {
-    print(json.decode(response.body));
-    return json.decode(response.body);
-  } else {
-    return "";
+  Future<String> getWeather() async {
+    final response = await http.get(Uri.parse(
+        'http://api.weatherapi.com/v1/forecast.json?key=e0271b19e612477b8fa84526211811&q=Rudolfstetten'));
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return "";
+    }
   }
 }
 
 class Weather {
   final String name;
   final String country;
-  final DateTime localTime;
+  final DateTime localtime;
   final double tempC;
-  // more later
 
-  Weather(this.name, this.country, this.localTime, this.tempC);
+  Weather(this.name, this.country, this.localtime, this.tempC);
 
-  // ?????????????????????????????????????????????????????????????????????'
+  String get weatherName => name;
+  String get weatherCountry => country;
+  DateTime get weatherTime => localtime;
+  double get weatherTemperature => tempC;
+}
+
+Future<List<Weather>> read(String fileName) async {
+  final String content = await rootBundle.loadString(fileName);
+  return parse(content);
+}
+
+List<Weather> parse(String s) {
+  List res = json.decode(s);
+  return res.map(parseWeather).toList();
+}
+
+Weather parseWeather(properties) {
+  String name = properties["name"];
+  String country = properties["country"];
+  DateTime localtime = properties["localtime"];
+  double tempC = properties["temp_c"];
+
+  return Weather(name, country, localtime, tempC);
 }
