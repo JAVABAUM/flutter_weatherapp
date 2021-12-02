@@ -11,12 +11,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
+      home:WeatherApp(),/*  Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black54,
           title: const Text('cool weather app'),
         ),
-      ),
+      ), */
     );
   }
 }
