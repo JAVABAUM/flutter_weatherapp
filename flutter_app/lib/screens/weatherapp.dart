@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class WeatherApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    getWeather();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -77,9 +81,62 @@ class WeatherApp extends StatelessWidget {
                 ],
               ),
             ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 370),
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Text(
+                    'Wind: 20km/h',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'Rain: 0.5mm',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Text(
+                    'Humidity: 50%',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
+}
+
+Future<String> getWeather() async {
+  final response = await http.get(Uri.parse(
+      'http://api.weatherapi.com/v1/forecast.json?key=e0271b19e612477b8fa84526211811&q=Baden'));
+  if (response.statusCode == 200) {
+    print(json.decode(response.body));
+    return json.decode(response.body);
+  } else {
+    return "";
+  }
+}
+
+class Weather {
+  final String name;
+  final String country;
+  final DateTime localTime;
+  final double tempC;
+  // more later
+
+  Weather(this.name, this.country, this.localTime, this.tempC);
+
+  // ?????????????????????????????????????????????????????????????????????'
 }
