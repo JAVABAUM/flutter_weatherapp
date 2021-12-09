@@ -13,11 +13,9 @@ class _WeatherAppState extends State<WeatherApp> {
   Weather? currentWeather;
 
   @override
-  initState() => {
-        // currentWeather = parseWeather(getWeather()),
-        // currentWeather = Weather("name", "", DateTime.utc(1989, 11, 9), 10.0),
-        print(currentWeather!.name)
-      };
+  void initState() => {
+    super.initState(),
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +133,8 @@ class _WeatherAppState extends State<WeatherApp> {
     final response = await http.get(Uri.parse(
         'http://api.weatherapi.com/v1/forecast.json?key=e0271b19e612477b8fa84526211811&q=Rudolfstetten'));
     if (response.statusCode == 200) {
-      return response.body;
+      // ignore: avoid_print
+      return json.decode(response.body);
     } else {
       return "";
     }
@@ -143,12 +142,26 @@ class _WeatherAppState extends State<WeatherApp> {
 }
 
 class Weather {
-  final String name;
-  final String country;
-  final DateTime localtime;
-  final double tempC;
+  String name;
+  String country;
+  DateTime localtime;
+  double tempC;
 
-  Weather(this.name, this.country, this.localtime, this.tempC);
+  Weather({
+    required this.name,
+    required this.country,
+    required this.localtime,
+    required this.tempC
+  });
+
+  factory Weather.fromJson(Map json) {
+    return Weather(
+        name: json["name"] as String,
+        country: json["country"] as String,
+        localtime: json["localtime"] as DateTime,
+        tempC: json["tempC"] as double,
+      );
+  }
 
   String get weatherName => name;
   String get weatherCountry => country;
@@ -156,6 +169,7 @@ class Weather {
   double get weatherTemperature => tempC;
 }
 
+/* 
 Future<List<Weather>> read(String fileName) async {
   final String content = await rootBundle.loadString(fileName);
   return parse(content);
@@ -166,6 +180,8 @@ List<Weather> parse(String s) {
   return res.map(parseWeather).toList();
 }
 
+
+
 Weather parseWeather(properties) {
   String name = properties["name"];
   String country = properties["country"];
@@ -174,3 +190,5 @@ Weather parseWeather(properties) {
 
   return Weather(name, country, localtime, tempC);
 }
+
+*/
