@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_app/screens/about.dart';
 
 class WeatherApp extends StatefulWidget {
   @override
@@ -38,11 +39,16 @@ class _WeatherAppState extends State<WeatherApp> {
             margin: const EdgeInsets.fromLTRB(0, 0, 10, 0),
             child: IconButton(
               icon: const Icon(
-                Icons.menu,
+                Icons.info,
                 size: 30,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                MaterialPageRoute materialPageRoute = new MaterialPageRoute(
+                  builder: (context) => about(),
+                );
+                Navigator.of(context).push(materialPageRoute);
+              },
             ),
           )
         ],
