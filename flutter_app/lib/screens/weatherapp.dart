@@ -15,8 +15,8 @@ class _WeatherAppState extends State<WeatherApp> {
 
   @override
   void initState() => {
-    super.initState(),
-  };
+        super.initState(),
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -139,8 +139,11 @@ class _WeatherAppState extends State<WeatherApp> {
     final response = await http.get(Uri.parse(
         'http://api.weatherapi.com/v1/forecast.json?key=e0271b19e612477b8fa84526211811&q=Rudolfstetten'));
     if (response.statusCode == 200) {
+      var allJson = json.decode(response.body);
+      var location = json.decode(allJson['location']);
+      print(location);
       // ignore: avoid_print
-      return json.decode(response.body);
+      return allJson;
     } else {
       return "";
     }
@@ -153,20 +156,19 @@ class Weather {
   DateTime localtime;
   double tempC;
 
-  Weather({
-    required this.name,
-    required this.country,
-    required this.localtime,
-    required this.tempC
-  });
+  Weather(
+      {required this.name,
+      required this.country,
+      required this.localtime,
+      required this.tempC});
 
   factory Weather.fromJson(Map json) {
     return Weather(
-        name: json["name"] as String,
-        country: json["country"] as String,
-        localtime: json["localtime"] as DateTime,
-        tempC: json["tempC"] as double,
-      );
+      name: json["name"] as String,
+      country: json["country"] as String,
+      localtime: json["localtime"] as DateTime,
+      tempC: json["tempC"] as double,
+    );
   }
 
   String get weatherName => name;
