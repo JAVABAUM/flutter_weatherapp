@@ -16,7 +16,7 @@ class about extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             const Text(
               'Contributors:',
               style: TextStyle(
@@ -25,7 +25,7 @@ class about extends StatelessWidget {
                 color: Colors.white,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -37,7 +37,7 @@ class about extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(width: 63),
+                const SizedBox(width: 63),
                 FlatButton(
                   minWidth: 20,
                   onPressed: () {
@@ -61,7 +61,7 @@ class about extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(width: 53),
+                const SizedBox(width: 53),
                 FlatButton(
                   minWidth: 20,
                   onPressed: () {
@@ -85,7 +85,7 @@ class about extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 FlatButton(
                   minWidth: 20,
                   onPressed: () {
